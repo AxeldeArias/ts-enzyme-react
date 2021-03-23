@@ -1,11 +1,11 @@
 import { AuthTypes, authTypes } from '../types'
 
-export type authStateTypes = {
+export type TAuthState = {
     uid?: string,
     name?: string
 }
 
-const initialState: authStateTypes = {}
+const initialState: TAuthState = {}
 
 export const authReducer = (state = initialState, action: AuthTypes) => {
     switch (action.type) {

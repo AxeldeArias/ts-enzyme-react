@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import validator from 'validator';
 import { useForm } from '../../hooks/useForm';
 import { setError, removeError } from '../../actions/ui'
-import { storeType } from '../../store/store';
-import { uiStateTypes } from '../../reducers/uiReducer';
+import { TStore } from '../../store/store';
+import { TUiState } from '../../reducers/uiReducer';
 import { startRegisterWithEmailPasswordName } from '../../actions/auth'
 
 type formType = {
@@ -17,7 +17,7 @@ type formType = {
 
 export const RegisterScreen = () => {
     const dispatch = useDispatch();
-    const {msgError} = useSelector<storeType, uiStateTypes>(state => state.ui)
+    const {msgError} = useSelector<TStore, TUiState>(state => state.ui)
 
     const [{name,email,password,password2},handleInputChange] = useForm({name:"",email:"",password:"",password2:""})
 

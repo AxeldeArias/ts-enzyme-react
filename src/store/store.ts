@@ -1,18 +1,28 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux'
-import thunk from 'redux-thunk';
+import { Action, applyMiddleware, combineReducers, createStore } from 'redux'
+import thunk, { ThunkAction } from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { authReducer, authStateTypes } from '../reducers/authReducer'
-import { uiReducer, uiStateTypes } from '../reducers/uiReducer'
+import { authReducer, TAuthState } from '../reducers/authReducer'
+import { uiReducer, TUiState } from '../reducers/uiReducer'
+import { noteReducer, TNoteState } from '../reducers/noteReducer'
 
 
-export type storeType = {
-  auth: authStateTypes,
-  ui: uiStateTypes
+export type TStore = {
+  auth: TAuthState,
+  ui: TUiState,
+  note: TNoteState,
 }
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  TStore,
+  unknown,
+  Action<string>
+>
 
 const reducers = combineReducers({
     auth: authReducer,
-    ui: uiReducer
+    ui: uiReducer,
+    note: noteReducer,
 })
 
 export const store = createStore(

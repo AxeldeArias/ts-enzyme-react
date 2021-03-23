@@ -1,11 +1,11 @@
 import { uiTypes, UITypes } from '../types'
 
-export type uiStateTypes = {
+export type TUiState = {
     loading: boolean,
     msgError: string | null,
 }
 
-const initialState: uiStateTypes = { 
+const initialState: TUiState = { 
     loading: false,
     msgError: null,
 }

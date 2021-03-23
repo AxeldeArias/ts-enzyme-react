@@ -1,20 +1,17 @@
 import { ChangeEvent, useState } from 'react';
 
-type stateType = {
-    [k:string]: string,
-}
 
-export const useForm = ( initialState: stateType ):
-[stateType,(a: ChangeEvent<HTMLInputElement>) => void,() => void] => {
-    
-    const [values, setValues] = useState<stateType>(initialState);
+export const useForm = <T>( initialState: T ): 
+    [T,( a:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void, (newState?: T ) => void ] => {
 
-    const reset = () => {
-        setValues( initialState );
+    const [values, setValues] = useState<T>(initialState);
+
+    const reset = (newState: T = initialState) => {
+        setValues( newState );
     }
 
 
-    const handleInputChange = ({target}: ChangeEvent<HTMLInputElement>): void => {
+    const handleInputChange = ({target}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         setValues({
             ...values,
             [ target.name ]: target.value

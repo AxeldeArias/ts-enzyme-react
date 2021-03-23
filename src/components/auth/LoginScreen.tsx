@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { useForm } from '../../hooks/useForm'
 import { startGoogleLogin, startLoginEmailAndPassword } from '../../actions/auth'
-import { storeType } from '../../store/store';
-import { uiStateTypes } from '../../reducers/uiReducer';
+import { TStore } from '../../store/store';
+import { TUiState } from '../../reducers/uiReducer';
 
 export const LoginScreen = () => {
    const dispatch = useDispatch();
-   const state = useSelector<storeType, uiStateTypes>(({ui})=> ui);
+   const state = useSelector<TStore, TUiState>(({ui})=> ui);
    const {loading} = state;
    const [values, handleInputChange] = useForm({
         email: "nando@gmail.com",

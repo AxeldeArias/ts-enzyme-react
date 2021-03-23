@@ -1,8 +1,10 @@
-import { Action, Dispatch } from 'redux'
+import { Action } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 import Swal from 'sweetalert2'
 import {firebase, googleAuthProvider} from '../firebase/firebase-config'
+import { AppThunk } from '../store/store'
 import {authTypes, AuthTypes} from '../types/authTypes'
+import { logoutCleaning } from './note'
 import { setError, uiFinishLoading, uiStartLoading } from './ui'
 
 export const login = (uid:string, displayName:string) => ({
@@ -17,13 +19,14 @@ export const logout = () => ({
     type: authTypes.logout
 })
 
-export const startLogout = () => async (dispatch: Dispatch)=>{
+export const startLogout = (): AppThunk => async (dispatch)=>{
     await firebase.auth().signOut();
     dispatch(logout());
+    dispatch(logoutCleaning());
 }
 
 export const startRegisterWithEmailPasswordName = 
-     (name: string, email: string, password: string) => async (dispatch: Dispatch)=> {
+     (name: string, email: string, password: string): AppThunk => async (dispatch) => {
         try {
             const {user} = await firebase.auth().createUserWithEmailAndPassword(email,password);            
             await user?.updateProfile({displayName:name})
@@ -34,7 +37,7 @@ export const startRegisterWithEmailPasswordName =
 
     }
 
-export const startLoginEmailAndPassword = (email: string,password: string) => async (dispatch: Dispatch)=> {
+export const startLoginEmailAndPassword = (email: string,password: string) : AppThunk => async (dispatch) => {
     try {
         dispatch(uiStartLoading())
         const {user} = await firebase.auth().signInWithEmailAndPassword(email,password);

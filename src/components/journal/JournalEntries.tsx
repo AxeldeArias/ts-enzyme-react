@@ -1,17 +1,22 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { JournalEntry } from './JournalEntry';
+import { TStore } from '../../store/store'
+import { TNoteState } from '../../reducers/noteReducer'
 
 export const JournalEntries = () => {
 
-    const entries = [1,2,3,4,5 ];
-
+   const note = useSelector<TStore,TNoteState>(state => state.note)
 
     return (
         <div className="journal__entries">
             
             {
-                entries.map( value => (
-                    <JournalEntry key={ value } />
+                note.notes.map( currentNote => (
+                    <JournalEntry 
+                        key={currentNote.id} 
+                        { ...currentNote } 
+                    />
                 ))
             }
 

@@ -1,29 +1,41 @@
 import React from 'react'
+import { TNote } from '../../types'
+import dayjs from "dayjs";
+import { useDispatch } from 'react-redux';
+import { setActiveNote } from '../../actions/note'
 
-export const JournalEntry = () => {
+export const JournalEntry = (note: TNote) => {
+    const dispatch = useDispatch()    
+    const {imageUrl, title, body, date} = note;
+    const noteDate = dayjs(date)
+
+    const handleClick = () => {
+        dispatch(setActiveNote(note.id, note));
+    }
+
     return (
-        <div className="journal__entry pointer">
-            
+        <div className="journal__entry pointer" onClick={handleClick}>
+           { imageUrl &&
             <div 
                 className="journal__entry-picture"
                 style={{
                     backgroundSize: 'cover',
-                    backgroundImage: 'url(https://earthsky.org/upl/2018/12/comet-wirtanen-Jack-Fusco-dec-2018-Anza-Borrego-desert-CA-e1544613895713.jpg)'
+                    backgroundImage: `url( ${imageUrl} )`
                 }}
             ></div>
-
+}
             <div className="journal__entry-body">
                 <p className="journal__entry-title">
-                    Un nuevo día
+                    {title}
                 </p>
                 <p className="journal__entry-content">
-                    Reprehenderit id in duis consectetur deserunt veniam fugiat.
+                    {body}
                 </p>
             </div>
 
-            <div className="journal__entry-date-box">
-                <span>Monday</span>
-                <h4>28</h4>
+            <div className="journal__entry-date">
+                <span>{noteDate.format("dddd")}</span>
+                <h4>{noteDate.format("D")}</h4>
             </div>
 
         </div>
