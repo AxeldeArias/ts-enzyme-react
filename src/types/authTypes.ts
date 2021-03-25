@@ -6,16 +6,13 @@ export enum authTypes {
 interface LoginAction {
     type: authTypes.login,
     payload: {
-        uid: number
+        uid: string
         displayName: string
     },
 }
 
 interface LogoutAction {
     type:  authTypes.logout,
-    meta: {
-        timestamp: number
-    }
 }
 
 export type AuthTypes = LoginAction | LogoutAction

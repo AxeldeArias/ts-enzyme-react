@@ -66,7 +66,7 @@ export const startUploading =
     (file: File): AppThunk =>
     async (dispatch, getState) => { 
     const currentNote = getState().note.active;
-    const fileResp = await fileUpload(file);
+    const fileResp = await fileUpload(file) || "";
     console.log({fileResp})
     currentNote && dispatch(setActiveNote(currentNote.id, {imageUrl: fileResp}))
 }

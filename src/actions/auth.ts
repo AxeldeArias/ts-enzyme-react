@@ -15,7 +15,7 @@ export const login = (uid:string, displayName:string) => ({
     }
 })
 
-export const logout = () => ({
+export const logout = (): AuthTypes => ({
     type: authTypes.logout
 })
 
